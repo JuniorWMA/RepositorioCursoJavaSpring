@@ -24,5 +24,12 @@ public class UserController {
        List<User> list = service.findAll(); 
        return list;
     }
+
+    @GetMapping(value ="{id}")
+    public User findById(@PathVariable Long id) {
+        User obj = service.findById(id);
+        return obj;
+        
+    }
     
 }

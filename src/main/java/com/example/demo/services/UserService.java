@@ -20,4 +20,9 @@ public class UserService {
 		List<User> result = repository.findAll();
 		return result;
 	}
+
+	public User findById(Long id) {
+		Optional<User> obj = repository.findById(id);
+		return obj.get();
+	}
 }
