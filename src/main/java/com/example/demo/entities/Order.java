@@ -2,6 +2,8 @@ package com.example.demo.entities;
 
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.demo.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,7 +14,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.metamodel.SetAttribute;
 
 @Entity
 @Table(name = "tb_order")
@@ -27,12 +31,18 @@ public class Order {
 
 
     private Integer orderStatus;
-
+    
     
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+    
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> itens = new HashSet<>();
+
+    
+    
 
     public Order() {
     }
@@ -79,6 +89,13 @@ public class Order {
         
     }
 
+    public Set<OrderItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<OrderItem> itens) {
+        this.itens = itens;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
